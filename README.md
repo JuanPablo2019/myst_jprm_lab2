@@ -2,11 +2,13 @@
 *The pourpose of this proyect is to model the market microstructue with two fundamental models:*
 - APT
 - Roll
+
 *Expecting to describe the market dynamics through this models which are driven not only by strong mathematical
 assumptions but also from an economic perspective.
+
 - This proyect is part of the course: Market Microstructure and Trading Systems.
 - Program: Financial Engineering.
-- University: ITESO.*
+- University: ITESO.
 
 ## Install dependencies
 
