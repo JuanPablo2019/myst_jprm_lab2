@@ -19,7 +19,7 @@ import json
 
 #%% Orderbook data
 
-f = open('orderbooks_05jul21.json')
+f = open('files/orderbooks_05jul21.json')
 orderbooks_data = json.load(f)
 
 #%% orderbook data wranging

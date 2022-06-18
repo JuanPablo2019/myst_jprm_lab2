@@ -164,3 +164,4 @@ w_exp_2['e2']=e2_m2
 w_exp_2['proportion e1'] = prop2_e1
 w_exp_2['proportion e2'] = prop2_e2
 
+#%% Function backtest
