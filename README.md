@@ -4,9 +4,9 @@
 - Roll
 *Expecting to describe the market dynamics through this models which are driven not only by strong mathematical
 assumptions but also from an economic perspective.
-This proyect is part of the course: Market Microstructure and Trading Systems.
-Program: Financial Engineering.
-University: ITESO.*
+- This proyect is part of the course: Market Microstructure and Trading Systems.
+- Program: Financial Engineering.
+- University: ITESO.*
 
 ## Install dependencies
 
