@@ -356,8 +356,31 @@ def f_martingale(data_ob:dict,price:str='midprice',interval:str='None') -> dict:
        return exp_1
        
        
-          
-           
+def auto_cov(ts:list,lag:int=1) -> float:
+    """
+    
+
+    Parameters
+    ----------
+    ts : list
+        DESCRIPTION.
+    lag : int, optional
+        DESCRIPTION. The default is 1.
+
+    Returns
+    -------
+    float
+        DESCRIPTION.
+
+    """
+    mu = np.mean(ts)
+    n = len(ts)
+    r =[]
+    for i in range(1,n):
+        r.append((ts[i]-mu)*(ts[i-lag]-mu))
+
+
+    return sum(r)*(1/(n-lag))
            
         
        

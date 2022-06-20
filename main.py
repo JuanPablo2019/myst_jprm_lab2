@@ -164,4 +164,25 @@ w_exp_2['e2']=e2_m2
 w_exp_2['proportion e1'] = prop2_e1
 w_exp_2['proportion e2'] = prop2_e2
 
-#%% Function backtest
+#%% Function backtest autocovariance
+
+
+pt = data_1['midprice']
+spread = data_1['spread']
+d_pt = [pt[i-1]-pt[i] for i in range(1,len(pt))]
+gamma_1=fn.auto_cov(d_pt)
+c = np.sqrt(gamma_1)
+spread_pred = 2*c
+
+#%% test for alll the pt series
+gamma1=[]
+pt = data_1['midprice']
+d_pt = [pt[i-1]-pt[i] for i in range(1,len(pt))]
+
+for i in range(2,len(d_pt)):
+    xt = d_pt[0:i]
+    gamma1.append(fn.auto_cov(xt))
+    
+c = np.array([np.sqrt(np.abs(i)) for i in gamma1])
+spread_pred = 2*c
+    
