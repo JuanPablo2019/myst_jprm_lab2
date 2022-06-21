@@ -358,20 +358,21 @@ def f_martingale(data_ob:dict,price:str='midprice',interval:str='None') -> dict:
        
 def auto_cov(ts:list,lag:int=1) -> float:
     """
-    
+    The porpouse of this function is to calculate the autocovariance of
+    a time series with n lags.
 
     Parameters
     ----------
-    ts : list
+    ts : list of fata (only the list without the timestamp)
         DESCRIPTION.
     lag : int, optional
         DESCRIPTION. The default is 1.
+        
 
     Returns
     -------
-    float
-        DESCRIPTION.
-
+    the autocovariance of the series with its k-lags. (float value)
+     
     """
     mu = np.mean(ts)
     n = len(ts)

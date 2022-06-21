@@ -23,11 +23,14 @@ def plot_orderbook(book):
     
     Parameters
     ----------
+    book: dictionary of an orderbook compound of the following variables:
+          bid_size, bid, ask_size, ask.
     Returns
     -------
+    A plotly graph with the orderbooks levels (bid/ask) X axis. 
+    Y axis represent the volume.
     
-    References
-    ----------
+  
     """
     buy_side=book[['bid_size', 'bid']]
     buy_side=buy_side.groupby(['bid']).sum()
@@ -98,7 +101,7 @@ def plot_ts(y:list, x:list, variable_name:str):
 
 def plot_boxplot(y:list, variable_name:str):
     """
-    Boxplot function.
+    Boxplot function with plotly.
 
     Parameters
     ----------
