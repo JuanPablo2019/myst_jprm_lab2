@@ -383,5 +383,33 @@ def auto_cov(ts:list,lag:int=1) -> float:
 
     return sum(r)*(1/(n-lag))
            
+         
+def auto_corr(ts:list,lag:int=1) -> float:
+    """
+    The porpouse of this function is to calculate the autocorrelation of
+    a time series with n lags.
+
+    Parameters
+    ----------
+    ts : list of fata (only the list without the timestamp)
+        DESCRIPTION.
+    lag : int, optional
+        DESCRIPTION. The default is 1.
         
+
+    Returns
+    -------
+    the autocovariance of the series with its k-lags. (float value)
+     
+    """
+    mu = np.mean(ts)
+    n = len(ts)
+    r1 =[]
+    r2=[]
+    for i in range(1,n):
+        r1.append((ts[i]-mu)*(ts[i-lag]-mu))
+        r2.append((ts[i]-mu)**2)
+
+
+    return   sum(r1)/sum(r2)
        
