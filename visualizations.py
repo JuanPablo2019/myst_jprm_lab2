@@ -101,7 +101,7 @@ def plot_ts(y:list, x:list, variable_name:str):
 
 def plot_boxplot(y:list, variable_name:str):
     """
-    Boxplot function with plotly.
+    Univariate Boxplot function with plotly.
 
     Parameters
     ----------
@@ -122,3 +122,55 @@ def plot_boxplot(y:list, variable_name:str):
     
     return fig.show()
     
+
+def boxplot_multi(df:dict, variables:list, x_ax:str, orient:str, title:str, 
+                  h:int, xaxes:str, yaxes:str, newnames:dict):
+    """
+    
+
+    Returns
+    -------
+    df: dict
+        dataframe (two dimensional dictionary) with the variables of interest.
+        
+    variables: list
+               variables or variable you want to plot a list of strings.
+    x_ax: str
+          the variable that will represent the x axi in the plot.
+          
+    oreint: str
+            chart orientation v for vertical, h for horizontal.
+            
+    title: str
+           The title of the chart.
+           
+    h:    int
+          height of the chart.
+          
+    xaxes: str
+           the name of the x axis.
+           
+    yaxes: str
+           the name of the y axis.
+    
+    newnames: dict
+              names for the variables that are going to be visible.
+    """
+
+    fig = px.bar(df, y=variables, x=x_ax ,orientation=orient,
+             title=title,height=h,width=1000)
+    fig.update_layout(barmode='relative', bargap=0.50,bargroupgap=0.0)
+    
+    
+    fig.for_each_trace(lambda t: t.update(name = newnames[t.name]))
+    
+    fig.update_xaxes(title=xaxes)
+    fig.update_yaxes(title=yaxes)
+    fig.update_layout(
+        xaxis = dict(
+            tickmode = 'linear',
+            tick0 = 0,
+            dtick = 1
+        )
+    )
+    return fig.show()

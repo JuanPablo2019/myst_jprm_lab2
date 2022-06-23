@@ -356,7 +356,7 @@ def f_martingale(data_ob:dict,price:str='midprice',interval:str='None') -> dict:
        return exp_1
        
        
-def auto_cov(ts:list,lag:int=1) -> float:
+def auto_cov_delta(ts:list,lag:int=1) -> float:
     """
     The porpouse of this function is to calculate the autocovariance of
     a time series with n lags.
@@ -374,17 +374,18 @@ def auto_cov(ts:list,lag:int=1) -> float:
     the autocovariance of the series with its k-lags. (float value)
      
     """
-    mu = np.mean(ts)
-    n = len(ts)
+    delta = [ts[i-1]-ts[i] for i in range(1,len(ts))]
+    mu = np.mean(delta)
+    n = len(delta)
     r =[]
     for i in range(1,n):
-        r.append((ts[i]-mu)*(ts[i-lag]-mu))
+        r.append((delta[i]-mu)*(delta[i-lag]-mu))
 
 
-    return sum(r)*(1/(n-lag))
+    return [sum(r)*(1/(n-lag)),delta]
            
          
-def auto_corr(ts:list,lag:int=1) -> float:
+def auto_corr_delta(ts:list,lag:int=1) -> float:
     """
     The porpouse of this function is to calculate the autocorrelation of
     a time series with n lags.
@@ -402,14 +403,80 @@ def auto_corr(ts:list,lag:int=1) -> float:
     the autocovariance of the series with its k-lags. (float value)
      
     """
-    mu = np.mean(ts)
-    n = len(ts)
+    delta = [ts[i-1]-ts[i] for i in range(1,len(ts))]
+    mu = np.mean(delta)
+    n = len(delta)
     r1 =[]
     r2=[]
     for i in range(1,n):
-        r1.append((ts[i]-mu)*(ts[i-lag]-mu))
-        r2.append((ts[i]-mu)**2)
+        r1.append((delta[i]-mu)*(delta[i-lag]-mu))
+        r2.append((delta[i]-mu)**2)
 
 
     return   sum(r1)/sum(r2)
-       
+
+def roll_model(gamma1:float) -> float:
+    """
+    
+    The objective of this function is to calculate the spread given by 
+    the roll model.
+    
+    Parameters
+    ----------
+    gamma1 : float
+             covariance of the changes of the variable of interest.
+        
+
+    Returns
+    -------
+    float
+        The spread priced by the role model.
+
+    """
+    c = np.sqrt(np.abs(gamma1))
+
+    model_spread = 2*c
+    
+    return model_spread
+
+def roll_model_ts(ts: list)-> list:
+    """
+    The objective of this function is to calculate the spread priced by
+    the role model for each point in time, in order to compare it with 
+    another time series e.g. the real spread.
+
+    Parameters
+    ----------
+    ts : list
+         time series of the variable of interest
+    
+    
+
+    Returns
+    -------
+    list
+        the spread for each observation
+        the length of the output would be of size ts-2
+        because the autocorrelation function needs enough data to perform
+        the necessary calculations.
+
+    """
+    delta = [ts[i-1]-ts[i] for i in range(1,len(ts))]
+    gamma1_l=[]
+    
+    for i in range(2,len(delta)):
+        xt = delta[0:i]
+        mu = np.mean(xt)
+        n = len(xt)
+        r =[]
+        for i in range(1,n):
+                  r.append((xt[i]-mu)*(xt[i-1]-mu))
+        gamma1_l.append(sum(r)*(1/(n-1)))
+        
+    c = np.array([np.sqrt(np.abs(i)) for i in gamma1_l])
+    spread_pred = 2*c
+    
+    return spread_pred
+
+
+    
