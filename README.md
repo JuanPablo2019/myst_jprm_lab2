@@ -3,8 +3,9 @@
 - APT
 - Roll
 
-*Expecting to describe the market dynamics through this models which are driven not only by strong mathematical
-assumptions but also from an economic perspective.
+*With the objective to describe the market dynamics through this models and aproximate the market 
+trading cost (spread). Both models are driven not only by strong mathematical
+assumptions but also from an economic perspective.*
 
 - This proyect is part of the course: Market Microstructure and Trading Systems.
 - Program: Financial Engineering.
@@ -20,8 +21,14 @@ Or you can manually install one by one using the name and version in the file.
 
 ## Funcionalities
 
-*Add here examples of core functionalities for the project in this repository.*
-
+*The following actions are found in functions that are located in the functions.py and
+visualizations.py files. The feutures that this functions perform are the following:*
+- Order Book Description.
+- Martingale Test.
+- Roll Model theorical spread.
+- Autocorrelation/Autocovariance function.
+- Univariate and multivariate visualizations.Boxplot and time series.
+- Order Book Visualization by levels and volume.
 ## Author
 *Juan Pablo Ruiz Magaña. Financial Engineering Student at ITESO.*
 
