@@ -59,7 +59,9 @@ def f_descriptive_ob(data_ob:dict) -> dict:
                 columns: opening, close, minimun and maximun (calculated from orderbook midprice),
                          volume (calculated as the total volume)
         'stats_ob_imbalance': Dataframe containing the following statistical moments 
-                             of the orderbook imbalance: Median, Variance, Bias, Kurtosis.                 
+                             of the orderbook imbalance: Median, Variance, Bias, Kurtosis.
+        'bid': bid price.
+        'ask': ask price.
              
         
     
@@ -124,6 +126,11 @@ def f_descriptive_ob(data_ob:dict) -> dict:
     #-- (13) stats: Mediana, Varianza, Sesgo, Kurtosis for the ob_imb
     stats = pd.DataFrame({'Median': np.median(ob_imb),'Variance':np.var(ob_imb),
              'Skew':skew(ob_imb),'Kurtosis':kurtosis(ob_imb)},index=[1])
+    #bid price
+    bid = np.array([data_ob[ob_ts[i]]['bid'][0] for i in range(0,len(ob_ts))])
+    
+    #ask price
+    ask = np.array([data_ob[ob_ts[i]]['ask'][0] for i in range(0,len(ob_ts))])
     
     r_data = {'median_ts_ob':ob_m1, 'spread': ob_m2, 'midprice': ob_m3, 
               'No. of price levels':ob_m4,'Bid Volume':ob_m5,
@@ -131,7 +138,7 @@ def f_descriptive_ob(data_ob:dict) -> dict:
               'orderbook_imbalance': ob_imb, 
               'weighted_midprice':ob_wm,
               'Volume Weighted Average Price':vwap,'OHLCV':ohlcv_hr,
-              'stats_ob_imbalance':stats}
+              'stats_ob_imbalance':stats,'bid':bid,'ask':ask}
     
 
    
